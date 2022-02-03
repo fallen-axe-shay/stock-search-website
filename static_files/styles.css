@@ -1,0 +1,372 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    background: url("http://127.0.0.1:8080/resources/background_image") no-repeat;
+    height: 100%;
+}
+
+.main-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-container > .page-header {
+    display: flex;
+    margin-top: 50px;
+    font-family: sans-serif;
+    font-size: 40px;
+    color: gray;
+}
+
+.main-container > .search-bar {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    background: white;
+    border-radius: 10px;
+    height: 40px;
+    width: 60%;
+    border: white;
+    box-shadow: 2px 2px 1px rgb(206, 206, 206);
+}
+
+.main-container > .search-bar > .divider {
+    border-right: 1px solid rgb(206, 206, 206);
+    height: 40px;
+}
+
+.main-container > .search-bar > input {
+    flex-grow: 1;
+    border: none;
+    height: 35px;
+    font-family: sans-serif;
+    color: gray;
+}
+
+.main-container > .search-bar > input:focus {
+    outline: none;
+}
+
+.main-container > .search-bar > #search-icon {
+    z-index: 5;
+}
+
+.main-container > .search-bar > #search-icon > img{
+    height: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    filter: invert(95%) sepia(0%) saturate(0%) hue-rotate(143deg) brightness(85%) contrast(92%);
+    cursor: pointer;
+}
+
+.main-container > .search-bar > #search-icon > img:hover {
+    filter: invert(29%) sepia(7%) saturate(0%) hue-rotate(163deg) brightness(99%) contrast(88%);
+}
+
+.main-container > .search-bar > #cancel-icon > img{
+    height: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    filter: invert(95%) sepia(0%) saturate(0%) hue-rotate(143deg) brightness(85%) contrast(92%);
+    cursor: pointer;
+}
+
+.main-container > .search-bar > #cancel-icon > img:hover {
+    filter: invert(29%) sepia(7%) saturate(0%) hue-rotate(163deg) brightness(99%) contrast(88%);
+}
+
+.main-container > .search-bar > #cancel-icon {
+    z-index: 5;
+}
+
+.hide {
+    display: none !important;
+}
+
+/* Tooltip */
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    margin-top: 12px;
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    min-width: 205px;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+    background-color: white;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    color: gray;
+    font-family: sans-serif;
+    font-size: 15px;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    box-shadow: 2px 2px 1px rgb(206, 206, 206);
+    border: rgb(206, 206, 206) solid 1px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+  }
+
+  .tooltip .tooltiptext::before {
+    content: '';
+    display: block;  
+    position: absolute;
+    left: 9px;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    border: 11px solid transparent;
+    border-bottom-color: rgb(206, 206, 206);
+}
+
+.tooltip .tooltiptext::after {
+    content: '';
+    display: block;  
+    position: absolute;
+    left: 11px;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-bottom-color: white;
+}
+
+.tooltip img {
+    height: 30px;
+    padding-right: 10px;
+}
+
+
+.main-container .error-content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container .error-content > div {
+    background: rgb(206, 206, 206);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    width: 60%;
+    font-family: sans-serif;
+}
+
+.main-container .content {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 100%;
+    align-self: center;
+}
+
+.main-container .content .nav-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+    align-items: center;
+    background: rgb(243, 243, 243);
+}
+
+.main-container .content .nav-bar > div {
+    font-family: sans-serif;
+    font-weight: lighter;
+    padding: 20px;
+    color: rgb(133, 133, 133);
+    cursor: pointer;
+}
+
+.main-container .content .nav-bar > div:hover {
+    background: rgb(228, 228, 228);
+}
+
+.main-container .content .nav-bar > div.active {
+    background: rgb(212, 211, 211);
+}
+
+.company-profile, .stock-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.company-profile img {
+    height: 150px;
+    padding: 30px;
+}
+
+.company-profile  .parameter-head, .stock-data .parameter-head {
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: right;
+    padding: 5px;
+}
+
+.company-profile  .parameter-value, .stock-data .parameter-value {
+    font-weight: lighter;
+    font-family: sans-serif;
+    text-align: left;
+    padding: 5px;
+}
+
+.company-profile table, .stock-data table {
+    border-collapse: collapse;
+    table-layout: fixed ;
+}
+
+.company-profile table tr, .stock-data table tr {
+    border-bottom: 1px solid #ccc;
+}
+
+.company-profile table>:first-child,  .stock-data table>:first-child{
+    border-top: 1px solid #ccc;
+}
+
+.stock-data > img {
+
+}
+
+#change-param + img,  #change-percent-param + img{
+    height: 20px;
+    margin-left: 10px;
+}
+
+.stock-data table tr .parameter-value div {
+    display: flex;
+}
+
+.stock-data table {
+    margin-top: 50px;
+}
+
+.rec-trends {
+    display: flex;
+    font-family: sans-serif;
+    font-size: 20px;
+    align-items: center;
+}
+
+.rec-trends > span {
+    height: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.rec-trends > #left-label{
+    color: rgb(237,41,56);
+    padding: 10px;
+    text-align: center;
+}
+
+.rec-trends > #right-label{
+    color: rgb(0,255,127);
+    padding: 10px;
+    text-align: center;
+}
+
+.rec-trends > #strong-sell {
+    background: rgb(237,41,56);
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.rec-trends > #sell {
+    background: rgb(178,95,74);
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.rec-trends > #hold {
+    background: rgb(119,148,92);
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.rec-trends > #buy {
+    background: rgb(59,202,109);
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.rec-trends > #strong-buy {
+    background: rgb(0,255,127);
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.rec-subscript {
+    margin-top: 20px;
+    font-family: sans-serif;
+    color: gray;
+    font-size: 20px;
+}
+
+.latest-news {
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+.latest-news > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: rgb(228, 228, 228);
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.latest-news > div > img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    padding: 10px;
+}
+
+.latest-news > div > div {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: center;
+    flex-grow: 1;
+    margin-left: 20px;
+    height: 100%;
+    margin-right: 20px;
+}
+
+.latest-news > div > div > span,  .latest-news > div > div > a{
+    padding: 5px;
+}
+
+.latest-news .title {
+    font-weight: bold;
+}
+
+.latest-news .date {
+    font-weight: light;
+}

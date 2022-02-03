@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Jerry Allan Akshay - CSCI 571 HW6</title>
+        <meta name="description" content="Jerry's CSCI 571 HW6">
+        <link rel="stylesheet" href="http://127.0.0.1:8080/resources/CSS">
+    </head>
+    <body>
+        <div class="main-container">
+          <div class="page-header">
+            Stock Search
+          </div>
+          <div class="search-bar">
+            <span id='search-icon'>
+              <img src="http://127.0.0.1:8080/resources/search_icon"/>
+            </span>
+            <input type="text" id="search-input" name="search-input" placeholder="Enter Stock Ticker Symbol"/>
+            <span class='divider'></span>
+            <span id='cancel-icon'>
+              <img src="http://127.0.0.1:8080/resources/cancel_icon"/>
+            </span>
+          </div>
+          <div class="tooltip" style="display: none;">
+            <span class="tooltiptext">
+              <img src="http://127.0.0.1:8080/resources/warning_icon"/>
+              <div class="help-text">Please fill out this field</div>
+            </span>
+          </div>
+          <div class="error-content" style="display: none;">
+            <div>
+              Error: No record has been found. Please enter a valid symbol.
+            </div>
+          </div>
+          <div class="content" style="display: none;">
+            <div class="nav-bar">
+              <div class="first-tab active">Company</div>
+              <div>Stock Summary</div>
+              <div>Charts</div>
+              <div>Latest News</div>
+            </div>
+            <div class="company-profile">
+              <img/>
+              <table>
+                <tr>
+                  <td class="parameter-head">Company Name</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Stock Ticker Symbol</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Stock Exchange Code</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Company Start Date</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Category</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+              </table>
+            </div>
+            <div class="stock-data" style="display: none;">
+              <table>
+                <tr>
+                  <td class="parameter-head">Stock Ticker Symbol</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Trading Day</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Previous Closing Price</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Opening Price</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">High Price</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Low Price</td>
+                  <td class="parameter-value">dummy</td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Change</td>
+                  <td class="parameter-value">
+                    <div>
+                      <span id="change-param">dummy</span>
+                      <img>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="parameter-head">Change Percent</td>
+                  <td class="parameter-value">
+                    <div>
+                      <span id="change-percent-param">dummy</span>
+                      <img>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <div class="rec-trends">
+                <span id="left-label">Strong<br>Sell</span>
+                <span id="strong-sell">0</span>
+                <span id="sell">1</span>
+                <span id="hold">2</span>
+                <span id="buy">3</span>
+                <span id="strong-buy">4</span>
+                <span id="right-label">Strong<br>Buy</span>
+              </div>
+              <div class="rec-subscript">Recommendation Trends</div>
+            </div>
+            <div class="latest-news">
+              <!-- <div>
+                <img src="https://static.seekingalpha.com/cdn/s3/uploads/getty_images/651389749/image_651389749.jpg?io=getty-c-w750">
+                <div>
+                  <span class="title">Title</span>
+                  <span class="date">Date</span>
+                  <a class="link" href="https://finnhub.io/api/news?id=7addbfad73e5e9ab4c90a2560c9a8027a8b3a977801193fa40e2a22381ab84c9">See Original Post</a>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script src="http://127.0.0.1:8080/resources/script"></script>
+    </body>
+</html>
