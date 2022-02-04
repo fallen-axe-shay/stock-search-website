@@ -20,7 +20,7 @@ function search(event) {
     inputValue = $('#search-input').val().trim().toUpperCase();
     $('#search-input').val(inputValue);
     if(inputValue) {
-        $('.tooltip').hide();
+        document.querySelector( "#search-input" ).setCustomValidity( "" );
         path = API_URL + 'data/get_details_finnhub?symbol=' + inputValue;
         $.get(path, function(data, status){
             if(!Object.keys(data).length) {
@@ -34,22 +34,25 @@ function search(event) {
                 $('.nav-bar').siblings().hide();
                 $('.company-profile').show();
                 setCompanyData(data);
-                path = API_URL + 'data/get_additional_details_finnhub?symbol=' + inputValue;
-                $.get(path, function(data, status) {
-                    setStockData(data);
-                    fetchNews(data['news']);
-                    displayChart(data['stock-time-series']);
-                }).fail(function(xhr, status, error) {
-                    $('.error-content').show();
-                    $('.content').hide();
-                });
             }
           }).fail(function(xhr, status, error) {
                 $('.error-content').show();
                 $('.content').hide();
         });
+        path = API_URL + 'data/get_additional_details_finnhub?symbol=' + inputValue;
+        $.get(path, function(data, status) {
+            if(data['news'].length) {
+                setStockData(data);
+                fetchNews(data['news']);
+                displayChart(data['stock-time-series']);
+            }
+        }).fail(function(xhr, status, error) {
+            $('.error-content').show();
+            $('.content').hide();
+        });
     } else {
-        $('.tooltip').show();
+        document.querySelector( "#search-input" ).setCustomValidity( "Please fill out this field" );
+        document.querySelector( "#search-input" ).reportValidity();
         $('.error-content').hide();
         $('.content').hide();
     }
@@ -250,9 +253,13 @@ $('#search-input').on('change', (event)=> {
     $('#search-input').val(curInput.trim());
 });
 
+$('#search-input').on('keypress', (event)=> {
+    document.querySelector( "#search-input" ).setCustomValidity( "" );
+});
+
 $('#cancel-icon').on('click', (event)=> {
+    document.querySelector( "#search-input" ).setCustomValidity( "" );
     $('#search-input').val('');
-    $('.tooltip').hide();
     $('.error-content').hide();
     $('.content').hide();
 });
