@@ -30,7 +30,7 @@ html {
 .main-container > .page-header {
     display: flex;
     margin-top: 50px;
-    font-family: sans-serif;
+    font-family: 'calibri';
     font-size: 40px;
     color: gray;
 }
@@ -178,8 +178,9 @@ html {
 
 .company-profile  .parameter-value, .stock-data .parameter-value {
     font-weight: lighter;
-    font-family: sans-serif;
+    font-family: 'calibri';
     text-align: left;
+    font-size: 18px;
     padding: 5px;
 }
 
@@ -289,7 +290,7 @@ html {
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: rgb(228, 228, 228);
+    background: rgb(243 243 243);
     width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -319,10 +320,14 @@ html {
 
 .latest-news .title {
     font-weight: bold;
+    font-family: 'calibri';
+    font-size: 19px;
 }
 
-.latest-news .date {
-    font-weight: light;
+.latest-news .date,  .latest-news .date + a{
+    font-weight: lighter;
+    font-size: 17px;
+    font-family: 'calibri';
 }
 
 #chart-content {
