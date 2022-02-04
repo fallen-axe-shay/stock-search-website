@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8080/'
+const API_URL = 'https://my-csci-homework-project.wl.r.appspot.com/'
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 let chart, inputValue;
@@ -205,9 +205,9 @@ function setStockData(data) {
         temp = parseFloat(data['d']);
         $('#change-param + img').show();
         if(temp<0) {
-            $('#change-param + img').attr('src', "http://127.0.0.1:8080/resources/red_arrow");
+            $('#change-param + img').attr('src', "https://my-csci-homework-project.wl.r.appspot.com/resources/red_arrow");
         } else if (temp>0) {
-            $('#change-param + img').attr('src', "http://127.0.0.1:8080/resources/green_arrow");
+            $('#change-param + img').attr('src', "https://my-csci-homework-project.wl.r.appspot.com/resources/green_arrow");
         } else {
             $('#change-param + img').hide();
         }
@@ -218,9 +218,9 @@ function setStockData(data) {
         temp = parseFloat(data['dp']);
         $('#change-percent-param + img').show();
         if(temp<0) {
-            $('#change-percent-param + img').attr('src', "http://127.0.0.1:8080/resources/red_arrow");
+            $('#change-percent-param + img').attr('src', "https://my-csci-homework-project.wl.r.appspot.com/resources/red_arrow");
         } else if (temp>0) {
-            $('#change-percent-param + img').attr('src', "http://127.0.0.1:8080/resources/green_arrow");
+            $('#change-percent-param + img').attr('src', "https://my-csci-homework-project.wl.r.appspot.com/resources/green_arrow");
         } else {
             $('#change-percent-param + img').hide();
         }

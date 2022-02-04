@@ -35,7 +35,7 @@ _GLOBAL = {
             "red-arrow": './images/RedArrowDown.png'
         }
     },
-    "API_URL": 'http://127.0.0.1:8080/',
+    "API_URL": 'https://my-csci-homework-project.wl.r.appspot.com/',
     "FH_API_KEY" : 'c7tlkhqad3i8dq4u6hog',
     "FH_SANDBOX_API_KEY" : 'sandbox_c7tlkhqad3i8dq4u6hp0',
     "FH_URL" : 'https://finnhub.io/api/v1/'
