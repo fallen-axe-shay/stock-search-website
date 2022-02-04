@@ -18,7 +18,8 @@ from symtable import Symbol
 from flask import Flask, send_from_directory, request
 import requests
 from datetime import datetime
-from dateutil.relativedelta import relativedelta, MO
+from dateutil.relativedelta import relativedelta
+import time
 
 _GLOBAL = {
     "paths": {
@@ -89,6 +90,12 @@ def getFinnhubDetails():
     path = 'stock/profile2?symbol='
     r = requests.get(_GLOBAL['FH_URL'] + path + str(symbol) + "&token=" + _GLOBAL['FH_API_KEY'])
     result = r.json()
+    return result
+
+@app.route('/data/get_additional_details_finnhub', methods=['GET'])
+def getAdditionalDetails():
+    symbol = request.args.get('symbol').upper()
+    result = {'ticker': symbol}
     path = 'quote?symbol='
     s = requests.get(_GLOBAL['FH_URL'] + path + str(symbol) + "&token=" + _GLOBAL['FH_API_KEY'])
     result.update(s.json())
@@ -106,8 +113,14 @@ def getFinnhubDetails():
         "news": t.json()
     }
     result.update(temp)
+    path = 'stock/candle?symbol='
+    BEFORE_6_MONTHS = NOW + relativedelta(months=-6, days=-1)
+    t = requests.get(_GLOBAL['FH_URL'] + path + str(symbol) + "&resolution=D" + "&from=" + str(int(time.mktime(BEFORE_6_MONTHS.timetuple()))) +  "&to=" + str(int(time.mktime(NOW.timetuple()))) + "&token=" + _GLOBAL['FH_API_KEY'])
+    temp = {
+        "stock-time-series": t.json()
+    }
+    result.update(temp)
     return result
-
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

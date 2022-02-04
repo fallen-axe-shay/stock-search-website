@@ -1,9 +1,10 @@
 const API_URL = 'http://127.0.0.1:8080/'
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
+let chart, inputValue;
+
 $('#search-icon').on('click', (event)=> {
     search(event);
-    
 });
 
 $('#search-input').keypress(function (event) {
@@ -14,11 +15,13 @@ $('#search-input').keypress(function (event) {
   });
 
 function search(event) {
-    let inputValue = $('#search-input').val().trim();
+    $('.error-content').hide();
+    $('.content').hide();
+    inputValue = $('#search-input').val().trim().toUpperCase();
     $('#search-input').val(inputValue);
     if(inputValue) {
         $('.tooltip').hide();
-        path = API_URL + 'data/get_details_finnhub?symbol=' + inputValue
+        path = API_URL + 'data/get_details_finnhub?symbol=' + inputValue;
         $.get(path, function(data, status){
             if(!Object.keys(data).length) {
                 $('.error-content').show();
@@ -30,19 +33,135 @@ function search(event) {
                 $('.nav-bar > div.first-tab').addClass('active');
                 $('.nav-bar').siblings().hide();
                 $('.company-profile').show();
-                console.log(data)
                 setCompanyData(data);
-                fetchNews(data['news']);
+                path = API_URL + 'data/get_additional_details_finnhub?symbol=' + inputValue;
+                $.get(path, function(data, status) {
+                    setStockData(data);
+                    fetchNews(data['news']);
+                    displayChart(data['stock-time-series']);
+                }).fail(function(xhr, status, error) {
+                    $('.error-content').show();
+                    $('.content').hide();
+                });
             }
           }).fail(function(xhr, status, error) {
                 $('.error-content').show();
                 $('.content').hide();
-        });;
+        });
     } else {
         $('.tooltip').show();
         $('.error-content').hide();
         $('.content').hide();
     }
+}
+
+function displayChart(data) {
+    var volumeData = [];
+    var closePriceData = [];
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    for(var i = 0; i<data['t'].length; i++) {
+        // date = new Date(parseFloat(data['t'][i]) * 1000);
+        // time = date.toLocaleDateString("en-US");
+        time = parseInt(data['t'][i]) * 1000;
+        volumeData.push([time, data['v'][i]]);
+        closePriceData.push([time, data['c'][i]]);
+    }
+    chart = Highcharts.stockChart('chart-content', {
+        chart: {
+            height: '400px',
+            zoomType: 'x'
+        },
+        scrollbar :{
+            enabled: true
+        },
+        navigator : {
+            enabled: true
+        },
+        title: {
+            text: `Stock Price ${inputValue.toUpperCase()} ${today}`,
+            align: 'center'
+        },
+        subtitle: {
+            useHTML: true,
+            text: '<a target=_blank href="https://finnhub.io/">Source: Finnhub</a>',
+            style: {
+                'font-size': '15px'
+            }
+        },
+        xAxis: {
+            type: 'datetime'
+        },
+        yAxis: [{
+            title: {
+                text: 'Stock Price',
+            },
+            opposite: false
+        }, {
+            title: {
+                text: 'Volume',
+            },
+            opposite: true
+        }],
+        rangeSelector: {
+            enabled: true,
+            allButtonsEnabled: true,
+            inputEnabled: true,
+            buttons: [{
+                type: 'day',
+                count: 7,
+                text: '7d'
+            }, {
+                type: 'day',
+                count: 15,
+                text: '15d'
+            }, {
+                type: 'month',
+                count: 1,
+                text: '1m'
+            },
+            {
+                type: 'month',
+                count: 3,
+                text: '3m'
+            },
+            {
+                type: 'month',
+                count: 6,
+                text: '6m'
+            }],
+            selected: 3
+        },
+        series: [
+            {
+                type: 'area',
+                yAxis: 0,
+                name: 'Stock Price',
+                data: closePriceData,
+                fillColor: {
+                    linearGradient: {
+                        x1: 0,
+                        y1: 0,
+                        x2: 0,
+                        y2: 1
+                    },
+                    stops: [
+                        [0, Highcharts.getOptions().colors[0]],
+                        [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    ]
+                } 
+            },
+            {
+                yAxis: 1,
+                type: 'column',
+                name: 'Volume',
+                data: volumeData 
+            }
+        ]
+   });
 }
 
 function fetchNews(data) {
@@ -70,13 +189,7 @@ function getReadableDate(data) {
     return readableDate;
 }
 
-function setCompanyData(data) {
-    $('.company-profile>img').attr('src', data['logo']);
-    $('.company-profile>table tr:eq(0) > td:eq(1)').html(data['name']);
-    $('.company-profile>table tr:eq(1) > td:eq(1)').html(data['ticker']);
-    $('.company-profile>table tr:eq(2) > td:eq(1)').html(data['exchange']);
-    $('.company-profile>table tr:eq(3) > td:eq(1)').html(data['ipo']);
-    $('.company-profile>table tr:eq(4) > td:eq(1)').html(data['finnhubIndustry']);
+function setStockData(data) {
     $('.stock-data>table tr:eq(0) > td:eq(1)').html(data['ticker']);
     $('.stock-data>table tr:eq(1) > td:eq(1)').html(getReadableDate(data['t']));
     $('.stock-data>table tr:eq(2) > td:eq(1)').html(data['pc']);
@@ -123,6 +236,15 @@ function setCompanyData(data) {
     $('#strong-buy').html(recTrend['strongBuy']);
 }
 
+function setCompanyData(data) {
+    $('.company-profile>img').attr('src', data['logo']);
+    $('.company-profile>table tr:eq(0) > td:eq(1)').html(data['name']);
+    $('.company-profile>table tr:eq(1) > td:eq(1)').html(data['ticker']);
+    $('.company-profile>table tr:eq(2) > td:eq(1)').html(data['exchange']);
+    $('.company-profile>table tr:eq(3) > td:eq(1)').html(data['ipo']);
+    $('.company-profile>table tr:eq(4) > td:eq(1)').html(data['finnhubIndustry']);
+}
+
 $('#search-input').on('change', (event)=> {
     var curInput = event.target.value
     $('#search-input').val(curInput.trim());
@@ -148,7 +270,7 @@ $('.nav-bar > div').on('click', (event)=> {
             $('.stock-data').show();
         },
         'Charts': ()=> {
-
+            $('#chart-content').show();
         },
         'Latest News': ()=> {
             $('.latest-news').show();
