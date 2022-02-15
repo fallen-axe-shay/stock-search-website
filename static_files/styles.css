@@ -187,6 +187,7 @@ html {
 .company-profile table, .stock-data table {
     border-collapse: collapse;
     table-layout: fixed ;
+    margin-top: 5px;
 }
 
 .company-profile table tr, .stock-data table tr {
