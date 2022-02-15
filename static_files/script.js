@@ -138,6 +138,11 @@ function displayChart(data) {
             }],
             selected: 0
         },
+        plotOptions: {
+            series: {
+                pointWidth: 3
+            }
+        },
         series: [
             {
                 type: 'area',
