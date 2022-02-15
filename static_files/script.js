@@ -136,7 +136,7 @@ function displayChart(data) {
                 count: 6,
                 text: '6m'
             }],
-            selected: 3
+            selected: 0
         },
         series: [
             {
