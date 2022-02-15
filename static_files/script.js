@@ -240,6 +240,7 @@ function setStockData(data) {
 }
 
 function setCompanyData(data) {
+    data['logo'] ? $('.company-profile>img').show() : $('.company-profile>img').hide();
     $('.company-profile>img').attr('src', data['logo']);
     $('.company-profile>table tr:eq(0) > td:eq(1)').html(data['name']);
     $('.company-profile>table tr:eq(1) > td:eq(1)').html(data['ticker']);
