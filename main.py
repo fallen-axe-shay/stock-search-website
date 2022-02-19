@@ -105,6 +105,12 @@ def getAdditionalDetails():
         "recommendation": t.json()
     }
     result.update(temp)
+    return result
+
+@app.route('/data/get_news_finnhub', methods=['GET'])
+def getNews():
+    symbol = request.args.get('symbol').upper()
+    result = {'ticker': symbol}
     path = 'company-news?symbol='
     NOW = datetime.today()
     BEFORE_30 = NOW + relativedelta(days=-30)
@@ -113,7 +119,14 @@ def getAdditionalDetails():
         "news": t.json()
     }
     result.update(temp)
+    return result
+
+@app.route('/data/get_stocks_finnhub', methods=['GET'])
+def getStocks():
+    symbol = request.args.get('symbol').upper()
+    result = {'ticker': symbol}
     path = 'stock/candle?symbol='
+    NOW = datetime.today()
     BEFORE_6_MONTHS = NOW + relativedelta(months=-6, days=-1)
     t = requests.get(_GLOBAL['FH_URL'] + path + str(symbol) + "&resolution=D" + "&from=" + str(int(time.mktime(BEFORE_6_MONTHS.timetuple()))) +  "&to=" + str(int(time.mktime(NOW.timetuple()))) + "&token=" + _GLOBAL['FH_API_KEY'])
     temp = {
@@ -123,9 +136,4 @@ def getAdditionalDetails():
     return result
 
 if __name__ == '__main__':
-    # This is used when running locally only. When deploying to Google App
-    # Engine, a webserver process such as Gunicorn will serve the app. You
-    # can configure startup instructions by adding `entrypoint` to app.yaml.
     app.run(port=8080, debug=True)
-# [END gae_python3_app]
-# [END gae_python38_app]

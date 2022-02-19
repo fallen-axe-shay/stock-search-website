@@ -21,34 +21,78 @@ function search(event) {
     $('#search-input').val(inputValue);
     if(inputValue) {
         document.querySelector( "#search-input" ).setCustomValidity( "" );
-        path = API_URL + 'data/get_details_finnhub?symbol=' + inputValue;
-        $.get(path, function(data, status){
-            if(!Object.keys(data).length) {
+        
+        let path = API_URL + 'data/get_details_finnhub?symbol=' + inputValue;
+        $.ajax({
+            type : "GET",
+            url  : path,
+            async: true,
+            success: (response) => {
+                if(!Object.keys(response).length) {
+                    $('.error-content').show();
+                    $('.content').hide();
+                } else {
+                    $('.error-content').hide();
+                    $('.content').show();
+                    $('.nav-bar > div').removeClass('active');
+                    $('.nav-bar > div.first-tab').addClass('active');
+                    $('.nav-bar').siblings().hide();
+                    $('.company-profile').show();
+                    setCompanyData(response);
+                }
+            },
+            error: (error) => {
                 $('.error-content').show();
                 $('.content').hide();
-            } else {
-                $('.error-content').hide();
-                $('.content').show();
-                $('.nav-bar > div').removeClass('active');
-                $('.nav-bar > div.first-tab').addClass('active');
-                $('.nav-bar').siblings().hide();
-                $('.company-profile').show();
-                setCompanyData(data);
             }
-          }).fail(function(xhr, status, error) {
-                $('.error-content').show();
-                $('.content').hide();
         });
+
         path = API_URL + 'data/get_additional_details_finnhub?symbol=' + inputValue;
-        $.get(path, function(data, status) {
-            if(data['news'].length) {
-                setStockData(data);
-                fetchNews(data['news']);
-                displayChart(data['stock-time-series']);
+        $.ajax({
+            type : "GET",
+            url  : path,
+            async: true,
+            success: (response) => {
+                if(response['recommendation'].length) {
+                    setStockData(response);
+                }
+            },
+            error: (error) => {
+                $('.error-content').show();
+                $('.content').hide();
             }
-        }).fail(function(xhr, status, error) {
-            $('.error-content').show();
-            $('.content').hide();
+        });
+
+        path = API_URL + 'data/get_news_finnhub?symbol=' + inputValue;
+        $.ajax({
+            type : "GET",
+            url  : path,
+            async: true,
+            success: (response) => {
+                if(response['news'].length) {
+                    fetchNews(response['news']);
+                }
+            },
+            error: (error) => {
+                $('.error-content').show();
+                $('.content').hide();
+            }
+        });
+
+        path = API_URL + 'data/get_stocks_finnhub?symbol=' + inputValue;
+        $.ajax({
+            type : "GET",
+            url  : path,
+            async: true,
+            success: (response) => {
+                if(response['stock-time-series']!=={}) {
+                    displayChart(response['stock-time-series']);
+                }
+            },
+            error: (error) => {
+                $('.error-content').show();
+                $('.content').hide();
+            }
         });
     } else {
         document.querySelector( "#search-input" ).setCustomValidity( "Please fill out this field" );
