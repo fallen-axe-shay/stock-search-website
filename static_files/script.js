@@ -21,7 +21,7 @@ function search(event) {
     $('#search-input').val(inputValue);
     if(inputValue) {
         document.querySelector( "#search-input" ).setCustomValidity( "" );
-        
+
         let path = API_URL + 'data/get_details_finnhub?symbol=' + inputValue;
         $.ajax({
             type : "GET",
@@ -94,6 +94,7 @@ function search(event) {
                 $('.content').hide();
             }
         });
+        
     } else {
         document.querySelector( "#search-input" ).setCustomValidity( "Please fill out this field" );
         document.querySelector( "#search-input" ).reportValidity();
