@@ -113,8 +113,8 @@ function displayChart(data) {
     today = yyyy + '-' + mm + '-' + dd;
     for(var i = 0; i<data['t'].length; i++) {
         time = parseInt(data['t'][i]) * 1000;
-        volumeData.push([time, data['v'][i]]);
-        closePriceData.push([time, data['c'][i]]);
+        volumeData.push([time, parseInt(data['v'][i])]);
+        closePriceData.push([time, parseFloat(data['c'][i])]);
     }
     chart = Highcharts.stockChart('chart-content', {
         chart: {
