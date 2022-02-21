@@ -112,11 +112,9 @@ function displayChart(data) {
     var yyyy = today.getFullYear();
     today = yyyy + '-' + mm + '-' + dd;
     for(var i = 0; i<data['t'].length; i++) {
-        // date = new Date(parseFloat(data['t'][i]) * 1000);
-        // time = date.toLocaleDateString("en-US");
         time = parseInt(data['t'][i]) * 1000;
         volumeData.push([time, data['v'][i]]);
-        closePriceData.push([time, data['c'][i]]);
+        closePriceData.push([time, parseFloat(data['c'][i]).toFixed(2)]);
     }
     chart = Highcharts.stockChart('chart-content', {
         chart: {
