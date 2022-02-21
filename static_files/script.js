@@ -236,7 +236,7 @@ function fetchNews(data) {
 function getReadableDate(data) {
     date = new Date(0);
     date.setUTCSeconds(parseInt(data));
-    readableDate = date.getDay() + " " +  MONTHS[parseInt(date.getMonth())] + ", " + date.getFullYear();
+    readableDate = date.getDate() + " " +  MONTHS[parseInt(date.getMonth())] + ", " + date.getFullYear();
     return readableDate;
 }
 
