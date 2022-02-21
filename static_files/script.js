@@ -108,7 +108,7 @@ function displayChart(data) {
     var closePriceData = [];
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = today.getFullYear();
     today = yyyy + '-' + mm + '-' + dd;
     for(var i = 0; i<data['t'].length; i++) {
