@@ -1,19 +1,3 @@
-# Copyright 2018 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-# [START gae_python38_app]
-# [START gae_python3_app]
 from symtable import Symbol
 from flask import Flask, send_from_directory, request
 import requests
@@ -41,9 +25,6 @@ _GLOBAL = {
     "FH_URL" : 'https://finnhub.io/api/v1/'
 }
 
-
-# If `entrypoint` is not defined in app.yaml, App Engine will look for an app
-# called `app` in `main.py`.
 app = Flask(__name__, static_url_path='/static_files')
 app.config['STATIC_PATH'] = "./static_files"
 
